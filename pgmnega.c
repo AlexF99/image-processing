@@ -1,13 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define LINESIZE 1024
 
 int main(int argc, char *argv[]) {
 
     FILE *img;
-    int i ;
+    char pixeltype[2];
+    int i, l=0;
     char line[LINESIZE+1] ;
+
+    for (i=0; i<argc; i++)
+        printf ("argv[%d]: %s\n", i, argv[i]);
 
     img = fopen("lena.pgm", "r");
     if (!img)
@@ -17,11 +22,15 @@ int main(int argc, char *argv[]) {
     }
 
 
-    while (!feof(img))
+    while (!feof(img) && l<10)
     {
-        printf ("%d: %s", i, line);
-        fgets (line, LINESIZE, img);
-        i++ ;
+        if (l == 0) {
+            strcpy(pixeltype, line);
+        }
+        printf("%s", pixeltype);
+        // printf("%d: %s", l, line);
+        // fgets(line, LINESIZE, img);
+        // l++;
     }
 
     printf("\n\n");
