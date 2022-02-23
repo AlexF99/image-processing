@@ -4,33 +4,50 @@
 
 #define LINESIZE 1024
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
 
     FILE *img;
     char pixeltype[2];
-    int i, l=0;
-    char line[LINESIZE+1] ;
+    int i, l = 0;
+    char *numlinhas;
+    char *numcolunas;
+    char imgsize[LINESIZE + 1];
+    char line[LINESIZE + 1];
 
-    for (i=0; i<argc; i++)
-        printf ("argv[%d]: %s\n", i, argv[i]);
+    for (i = 0; i < argc; i++)
+        printf("argv[%d]: %s\n", i, argv[i]);
 
     img = fopen("lena.pgm", "r");
     if (!img)
     {
-        perror("erro ao abrir arquivo") ;
+        perror("erro ao abrir arquivo");
         exit(1);
     }
 
+    fgets(pixeltype, LINESIZE, img);
+    printf("pixeltype: %s", pixeltype);
 
-    while (!feof(img) && l<10)
+    fgets(imgsize, LINESIZE, img);
+    printf("imgsize: %s", imgsize);
+
+   numlinhas = strtok(imgsize, "  ");
+   numcolunas = strtok(imgsize, "  ");
+   printf( "linhas: %s\n", numlinhas );
+   printf( "colunas: %s\n", numcolunas );
+   
+//    while( numlinhas != NULL ) {
+//       printf( "%s\n", numlinhas );
+    
+//       numlinhas = strtok(NULL, " ");
+//    }
+    
+
+    while (!feof(img) && l < 10)
     {
-        if (l == 0) {
-            strcpy(pixeltype, line);
-        }
-        printf("%s", pixeltype);
-        // printf("%d: %s", l, line);
-        // fgets(line, LINESIZE, img);
-        // l++;
+        fgets(line, LINESIZE, img);
+        printf("%d: %s", l, line);
+        l++;
     }
 
     printf("\n\n");
