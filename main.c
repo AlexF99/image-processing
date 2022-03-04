@@ -1,33 +1,35 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "pgm.h"
+#include "trata_pgm.h"
+#include "trata_comando.h"
 
 #define LINESIZE 1024
 
 int main(int argc, char *argv[])
 {
-    int **matriz_img = NULL;
-    t_pgm *pgm = NULL;    
-    int i, j;
+    char *arquivo_entrada;
 
-    init_pgm("lena.pgm", pgm);
+    // t_pgm *pgm = NULL;
+    // int i, j;
+    // FILE *img;
 
-    for (i = 0; i < pgm->linhas; i++)
-        for (j = 0; j < pgm->colunas; j++)
-            printf("%d ", matriz_img[i][j]);
+    parser(argc, argv, &arquivo_entrada);
 
-    libera_pgm(pgm);
+    // img = fopen("lena.pgm", "r");
+    // init_pgm(&img, pgm);
 
-    // delete this later
-    // char line[LINESIZE + 1];
-    // int l = 0;
-    // while (!feof(img) && l < 10)
-    // {
-    //     fgets(line, LINESIZE, img);
-    //     printf("%d: %s", l, line);
-    //     l++;
-    // }
+    // printf("%s\n", pgm->tipo_pixel);
+    // printf("%d\n", pgm->linhas);
+    // printf("%d\n", pgm->colunas);
+    // printf("%d\n", pgm->maxgray);
+
+    // for (i = 0; i < pgm->linhas; i++)
+    //     for (j = 0; j < pgm->colunas; j++)
+    //         printf("%d ", 12);
+            // printf("%d ", matriz_img[i][j]);
+
+    // libera_pgm(&img, pgm);
 
     printf("\n\n");
     return 0;
