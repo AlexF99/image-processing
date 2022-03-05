@@ -4,27 +4,40 @@
 #include <string.h>
 #include <unistd.h>
 
-void parser(int argc, char *argv[], char **arquivo_entrada)
+void parser(int argc, char *argv[], char **arquivo_entrada, char **arquivo_saida)
 {
-    char *value_o = NULL;
     int option;
-
     extern char *optarg;
 
     while ((option = getopt(argc, argv, "i:o:")) != -1)
         switch (option)
         {
         case 'i':
-            arquivo_entrada = malloc(strlen(optarg)*sizeof(char));
+            *arquivo_entrada = malloc(strlen(optarg) * sizeof(char) + 1);
             strcpy(*arquivo_entrada, optarg);
             break;
         case 'o':
-            value_o = optarg;
+            *arquivo_saida = malloc(strlen(optarg) * sizeof(char) + 1);
+            strcpy(*arquivo_saida, optarg);
             break;
         default:
-            fprintf(stderr, "Usage: %s -a -b -c value\n", argv[0]);
+            perror("falta parametros para as flags");
             exit(1);
         }
 
-    printf("arquivo_entrada = %s\nvalue_o = %s\n", *arquivo_entrada, value_o);
+    if (!*arquivo_entrada)
+    {
+        printf("escreva o nome do arquivo de entrada: ");
+        scanf("%s", *arquivo_entrada);
+    }
+    if (!*arquivo_saida)
+    {
+        printf("escreva o nome do arquivo de saida: ");
+        scanf("%s", *arquivo_saida);
+    }
+}
+
+void free_args(char **arquivo_entrada, char **arquivo_saida) {
+    free(*arquivo_entrada);
+    free(*arquivo_saida);
 }
