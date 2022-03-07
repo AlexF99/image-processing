@@ -24,17 +24,6 @@ void parser(int argc, char *argv[], char **arquivo_entrada, char **arquivo_saida
             perror("falta parametros para as flags");
             exit(1);
         }
-
-    if (!*arquivo_entrada)
-    {
-        printf("escreva o nome do arquivo de entrada: ");
-        scanf("%s", *arquivo_entrada);
-    }
-    if (!*arquivo_saida)
-    {
-        printf("escreva o nome do arquivo de saida: ");
-        scanf("%s", *arquivo_saida);
-    }
 }
 
 void free_args(char **arquivo_entrada, char **arquivo_saida) {
