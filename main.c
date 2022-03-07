@@ -4,6 +4,7 @@
 #include "trata_pgm.h"
 #include "abre_pgm.h"
 #include "trata_comando.h"
+#include "pgmnega.h"
 
 #define LINESIZE 1024
 
@@ -13,6 +14,7 @@ int main(int argc, char *argv[])
     char *arquivo_saida = NULL;
 
     t_pgm *pgm = NULL;
+    t_pgm *pgm_filtrado = NULL;
     int i, j;
     FILE *img;
 
@@ -21,16 +23,11 @@ int main(int argc, char *argv[])
     pgm = init_pgm(&img);
     fecha_pgm(&img);
 
-    printf("%s\n", pgm->tipo_pixel);
-    printf("%d\n", pgm->linhas);
-    printf("%d\n", pgm->colunas);
-    printf("%d\n", pgm->maxgray);
+    // aplica filtros
+    pgm_filtrado = pgm_negativo(pgm);
 
-    for (i = 0; i < pgm->linhas; i++)
-        for (j = 0; j < pgm->colunas; j++)
-            printf("%d ", pgm->matriz_img[i][j]);
-
-    // libera_pgm(&img, pgm);
+    cria_pgm(pgm_filtrado, arquivo_saida);
+    libera_pgm(pgm);
 
     free_args(&arquivo_entrada, &arquivo_saida);
 
