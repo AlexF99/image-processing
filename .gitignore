@@ -2,3 +2,7 @@
 *.pgm
 *.env
 *.o
+
+# filtros
+pgmnega
+pgmlimiar
