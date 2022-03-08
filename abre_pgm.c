@@ -5,10 +5,8 @@
 FILE *abre_pgm(char *nome_pgm)
 {
     FILE *img = NULL;
-    if (!nome_pgm) {
-        printf("chegou aqui");
+    if (!nome_pgm)
         return stdin;
-    }
     else
     {
         img = fopen(nome_pgm, "r");

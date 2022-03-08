@@ -71,7 +71,11 @@ t_pgm *init_pgm(FILE **img)
 void cria_pgm(t_pgm *pgm, char *arquivo_saida)
 {
     int i, j;
-    FILE *nova_imagem = fopen(arquivo_saida, "w");
+    FILE *nova_imagem = NULL;
+    if (!arquivo_saida)
+        nova_imagem = stdout;
+    else
+        nova_imagem = fopen(arquivo_saida, "w");
 
     if (!strcmp("P2", pgm->tipo_pixel))
     {
