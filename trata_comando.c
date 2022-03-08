@@ -4,14 +4,18 @@
 #include <string.h>
 #include <unistd.h>
 
-void parser(int argc, char *argv[], char **arquivo_entrada, char **arquivo_saida)
+void parser(int argc, char *argv[], char **arquivo_entrada, char **arquivo_saida, float *limiar)
 {
     int option;
     extern char *optarg;
 
-    while ((option = getopt(argc, argv, "i:o:")) != -1)
+    while ((option = getopt(argc, argv, "l:i:o:")) != -1)
         switch (option)
         {
+        case 'l':
+            printf("%s   ", optarg);
+            *limiar = strtof(optarg, NULL);
+            break;
         case 'i':
             *arquivo_entrada = malloc(strlen(optarg) * sizeof(char) + 1);
             strcpy(*arquivo_entrada, optarg);
@@ -26,7 +30,11 @@ void parser(int argc, char *argv[], char **arquivo_entrada, char **arquivo_saida
         }
 }
 
-void free_args(char **arquivo_entrada, char **arquivo_saida) {
-    free(*arquivo_entrada);
-    free(*arquivo_saida);
+void free_args(char **arquivo_entrada, char **arquivo_saida)
+{
+    if (*arquivo_entrada != NULL)
+        free(*arquivo_entrada);
+
+    if (*arquivo_saida != NULL)
+        free(*arquivo_saida);
 }
