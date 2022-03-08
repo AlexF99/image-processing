@@ -23,14 +23,13 @@ int main(int argc, char *argv[])
 {
     char *arquivo_entrada = NULL;
     char *arquivo_saida = NULL;
-    float limiar = 0.0;
     int i, j;
 
     t_pgm *pgm = NULL;
     t_pgm *pgm_filtrado = NULL;
     FILE *img;
 
-    parser(argc, argv, &arquivo_entrada, &arquivo_saida, &limiar);
+    parser(argc, argv, &arquivo_entrada, &arquivo_saida, NULL);
     img = abre_pgm(arquivo_entrada);
     pgm = init_pgm(&img);
     fecha_pgm(&img);
