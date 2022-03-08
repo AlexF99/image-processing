@@ -11,8 +11,6 @@ t_pgm *pgm_limiar(t_pgm *nova_img, float limiar)
     int i, j;
     float limiar_byte = MAXV * limiar;
 
-    printf("%.2f\t%.2f", limiar, limiar_byte);
-
     for (i = 0; i < nova_img->linhas; i++)
     {
         for (j = 0; j < nova_img->colunas; j++)
