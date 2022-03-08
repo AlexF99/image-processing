@@ -13,7 +13,6 @@ void parser(int argc, char *argv[], char **arquivo_entrada, char **arquivo_saida
         switch (option)
         {
         case 'l':
-            printf("%s   ", optarg);
             *limiar = strtof(optarg, NULL);
             break;
         case 'i':

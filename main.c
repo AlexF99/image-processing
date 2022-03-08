@@ -35,6 +35,5 @@ int main(int argc, char *argv[])
 
     free_args(&arquivo_entrada, &arquivo_saida);
 
-    printf("\n\n");
     return 0;
 }
