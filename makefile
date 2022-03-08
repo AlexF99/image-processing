@@ -3,4 +3,5 @@ all:
 	gcc -c abre_pgm.c -o abre_pgm.o
 	gcc -c trata_pgm.c -o trata_pgm.o
 	gcc -c pgmnega.c -o pgmnega.o
-	gcc -g main.c trata_comando.o abre_pgm.o trata_pgm.o pgmnega.o -o main.o
+	gcc -c pgmlimiar.c -o pgmlimiar.o
+	gcc -g main.c trata_comando.o abre_pgm.o trata_pgm.o pgmnega.o pgmlimiar.o -o main.o
