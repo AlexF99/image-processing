@@ -8,13 +8,13 @@
 #define LINESIZE 1024
 #define MAXV 255
 
-t_pgm *pgm_negativo(t_pgm *nova_img)
+t_pgm *pgm_rotacao(t_pgm *nova_img)
 {
     int i, j;
 
     for (i = 0; i < nova_img->linhas; i++)
         for (j = 0; j < nova_img->colunas; j++)
-            nova_img->matriz_img[i][j] = (unsigned char)(MAXV - nova_img->matriz_img[i][j]);
+            nova_img->matriz_img[j][i] = nova_img->matriz_img[i][j];
 
     return nova_img;
 }
@@ -23,18 +23,21 @@ int main(int argc, char *argv[])
 {
     char *arquivo_entrada = NULL;
     char *arquivo_saida = NULL;
+    int angulo = 90;
 
     t_pgm *pgm = NULL;
     t_pgm *pgm_filtrado = NULL;
     FILE *img;
 
-    parser(argc, argv, &arquivo_entrada, &arquivo_saida, NULL, NULL);
+    parser(argc, argv, &arquivo_entrada, &arquivo_saida, NULL, &angulo);
+
+    printf("angulo: %d\n", angulo);
     img = abre_pgm(arquivo_entrada);
     pgm = init_pgm(&img);
     fecha_pgm(&img);
 
     // aplica filtro
-    pgm_filtrado = pgm_negativo(pgm);
+    pgm_filtrado = pgm_rotacao(pgm);
     cria_pgm(pgm_filtrado, arquivo_saida);
 
     libera_pgm(pgm);

@@ -13,12 +13,14 @@ filtros: ${common_o}
 	gcc -g ${common_o} pgmnega.c -o pgmnega
 	gcc -g ${common_o} pgmlimiar.c -o pgmlimiar
 	gcc -g ${common_o} pgmmedia.c -o pgmmedia
+	gcc -g ${common_o} pgmrotacao.c -o pgmrotacao
 
 clean:
 	-rm -f *~ *.o
 
 purge:
-	-rm -f *.pgm
+#	-rm -f *.pgm
 	-rm -f pgmnega
 	-rm -f pgmlimiar
 	-rm -f pgmmedia
+	-rm -f pgmrotacao
