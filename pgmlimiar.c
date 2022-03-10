@@ -39,7 +39,6 @@ int main(int argc, char *argv[])
     char *arquivo_entrada = NULL;
     char *arquivo_saida = NULL;
     float limiar = 0.0;
-    int i, j;
 
     t_pgm *pgm = NULL;
     t_pgm *pgm_filtrado = NULL;

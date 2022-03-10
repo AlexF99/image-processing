@@ -10,7 +10,7 @@
 
 t_pgm *pgm_media(t_pgm *nova_img)
 {
-    int i, j, k;
+    int i, j;
     int media_vizinhos = (int)0;
     int max_linhas = nova_img->linhas - 1;
     int max_colunas = nova_img->colunas - 1;
@@ -79,7 +79,6 @@ int main(int argc, char *argv[])
 {
     char *arquivo_entrada = NULL;
     char *arquivo_saida = NULL;
-    int i, j;
 
     t_pgm *pgm = NULL;
     t_pgm *pgm_filtrado = NULL;
