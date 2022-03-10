@@ -5,6 +5,29 @@
 
 #define LENGTH 1024
 
+unsigned char **aloca_matriz(int linhas, int colunas)
+{
+    int i, j;
+    unsigned char **mat = malloc(linhas * sizeof(unsigned char *));
+
+    if (mat == NULL)
+    {
+        perror("erro de malloc");
+        exit(1);
+    }
+
+    for (i = 0; i < linhas; i++)
+    {
+        mat[i] = malloc(colunas * sizeof(unsigned char));
+        if (mat[i] == NULL)
+        {
+            perror("erro de malloc");
+            exit(1);
+        }
+    }
+    return mat;
+}
+
 t_pgm *init_pgm(FILE **img)
 {
     int i, j;
@@ -32,23 +55,7 @@ t_pgm *init_pgm(FILE **img)
     fscanf(*img, "%d", &pgm->colunas);
     fscanf(*img, "%d", &pgm->maxgray);
 
-    pgm->matriz_img = malloc(pgm->linhas * sizeof(unsigned char *));
-
-    if (pgm->matriz_img == NULL)
-    {
-        perror("erro de malloc");
-        exit(1);
-    }
-
-    for (i = 0; i < pgm->linhas; i++)
-    {
-        pgm->matriz_img[i] = malloc(pgm->colunas * sizeof(unsigned char));
-        if (pgm->matriz_img[i] == NULL)
-        {
-            perror("erro de malloc");
-            exit(1);
-        }
-    }
+    pgm->matriz_img = aloca_matriz(pgm->linhas, pgm->colunas);
 
     if (!strcmp("P2", pgm->tipo_pixel)) // verifica se tipo P2 ou P5
     {
