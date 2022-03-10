@@ -102,15 +102,27 @@ void cria_pgm(t_pgm *pgm, char *arquivo_saida)
     fclose(nova_imagem);
 }
 
+void libera_matriz(unsigned char **mat, int linhas)
+{
+    int i;
+    for (i = 0; i < linhas; i++)
+        free(mat[i]);
+
+    free(mat);
+}
+
 void libera_pgm(t_pgm *pgm)
 {
     free(pgm->tipo_pixel);
 
-    int i;
-    for (i = 0; i < pgm->linhas; i++)
-        free(pgm->matriz_img[i]);
+    libera_matriz(pgm->matriz_img, pgm->linhas);
+    pgm->matriz_img = NULL;
 
-    free(pgm->matriz_img);
+    // int i;
+    // for (i = 0; i < pgm->linhas; i++)
+    //     free(pgm->matriz_img[i]);
+
+    // free(pgm->matriz_img);
 
     free(pgm);
 }
