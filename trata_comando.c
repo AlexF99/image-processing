@@ -4,7 +4,7 @@
 #include <string.h>
 #include <unistd.h>
 
-void parser(int argc, char *argv[], char **arquivo_entrada, char **arquivo_saida, float *limiar, int *angulo)
+void parser(int argc, char *argv[], char **arquivo_entrada, char **arquivo_saida, float *limiar, int *angulo, int *limite_mediana)
 {
     int option;
     char *end;

@@ -8,7 +8,7 @@
 #define LINESIZE 1024
 #define MAXV 255
 
-t_pgm *pgm_rotacao_simples(t_pgm *nova_img)
+t_pgm *pgm_rotacao(t_pgm *nova_img, int angulo)
 {
     int i, j, k;
     unsigned char **nova_mat = NULL;
@@ -16,24 +16,21 @@ t_pgm *pgm_rotacao_simples(t_pgm *nova_img)
     int imax = nova_img->linhas;
     int jmax = nova_img->colunas;
 
-    // 90 graus
-    nova_mat = aloca_matriz(jmax, imax);
-
-    for (i = 0; i < jmax-1; i++)
+    if (angulo == 90)
     {
-        for (j = 0; j < imax-1; j++)
-        {
-            nova_mat[i][j] = nova_img->matriz_img[imax - j - 1][i];
-        }
+        nova_mat = aloca_matriz(jmax, imax);
+        for (i = 0; i < jmax - 1; i++)
+            for (j = 0; j < imax - 1; j++)
+                nova_mat[i][j] = nova_img->matriz_img[imax - j - 1][i];
+
+        free(nova_img->matriz_img);
+        nova_img->matriz_img = NULL;
+        nova_img->matriz_img = aloca_matriz(jmax, imax);
+
+        nova_img->linhas = jmax;
+        nova_img->colunas = imax;
+        nova_img->matriz_img = nova_mat;
     }
-
-    free(nova_img->matriz_img);
-    nova_img->matriz_img = NULL;
-    nova_img->matriz_img = aloca_matriz(jmax, imax);
-
-    nova_img->linhas = jmax;
-    nova_img->colunas = imax;
-    nova_img->matriz_img = nova_mat;
 
     return nova_img;
 }
@@ -48,14 +45,14 @@ int main(int argc, char *argv[])
     t_pgm *pgm_filtrado = NULL;
     FILE *img;
 
-    parser(argc, argv, &arquivo_entrada, &arquivo_saida, NULL, &angulo);
+    parser(argc, argv, &arquivo_entrada, &arquivo_saida, NULL, &angulo, NULL);
 
     img = abre_pgm(arquivo_entrada);
     pgm = init_pgm(&img);
     fecha_pgm(&img);
 
     // aplica filtro
-    pgm_filtrado = pgm_rotacao_simples(pgm);
+    pgm_filtrado = pgm_rotacao(pgm, angulo);
     cria_pgm(pgm_filtrado, arquivo_saida);
 
     libera_pgm(pgm);

@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
     t_pgm *pgm_filtrado = NULL;
     FILE *img;
 
-    parser(argc, argv, &arquivo_entrada, &arquivo_saida, NULL, NULL);
+    parser(argc, argv, &arquivo_entrada, &arquivo_saida, NULL, NULL, NULL);
     img = abre_pgm(arquivo_entrada);
     pgm = init_pgm(&img);
     fecha_pgm(&img);
