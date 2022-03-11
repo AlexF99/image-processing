@@ -8,71 +8,53 @@
 #define LINESIZE 1024
 #define MAXV 255
 
-t_pgm *pgm_media(t_pgm *nova_img)
+t_pgm *pgm_media(t_pgm *original)
 {
     int i, j;
-    int media_vizinhos = (int)0;
-    int max_linhas = nova_img->linhas - 1;
-    int max_colunas = nova_img->colunas - 1;
+    unsigned char media_vizinhos = 0;
+    int max_linhas = original->linhas - 1;
+    int max_colunas = original->colunas - 1;
     int num_vizinhos = 0;
 
-    for (i = 0; i < nova_img->linhas; i++)
+    unsigned char **mat_aux = NULL;
+
+    mat_aux = aloca_matriz(original->linhas, original->colunas);
+
+    for (i = 0; i < original->linhas; i++)
     {
-        for (j = 0; j < nova_img->colunas; j++)
+        for (j = 0; j < original->colunas; j++)
         {
             num_vizinhos = 0;
+            media_vizinhos = 0;
             if (i < max_linhas)
             {
                 if (j < max_colunas)
-                {
-                    media_vizinhos += (int)nova_img->matriz_img[i + 1][j + 1];
-                    num_vizinhos++;
-                }
+                    media_vizinhos = ((original->matriz_img[i + 1][j + 1] + (media_vizinhos * num_vizinhos)) / ++num_vizinhos);
                 if (j > 0)
-                {
-                    media_vizinhos += (int)nova_img->matriz_img[i + 1][j - 1];
-                    num_vizinhos++;
-                }
-                media_vizinhos += (int)nova_img->matriz_img[i + 1][j];
-                num_vizinhos++;
+                    media_vizinhos = ((original->matriz_img[i + 1][j - 1] + (media_vizinhos * num_vizinhos)) / ++num_vizinhos);
+                media_vizinhos = ((original->matriz_img[i + 1][j] + (media_vizinhos * num_vizinhos)) / ++num_vizinhos);
             }
             if (i > 0)
             {
                 if (j < max_colunas)
-                {
-                    media_vizinhos += (int)nova_img->matriz_img[i - 1][j + 1];
-                    num_vizinhos++;
-                }
+                    media_vizinhos = ((original->matriz_img[i - 1][j + 1] + (media_vizinhos * num_vizinhos)) / ++num_vizinhos);
                 if (j > 0)
-                {
-                    media_vizinhos += (int)nova_img->matriz_img[i - 1][j - 1];
-                    num_vizinhos++;
-                }
-                media_vizinhos += (int)nova_img->matriz_img[i - 1][j];
-                num_vizinhos++;
+                    media_vizinhos = ((original->matriz_img[i - 1][j - 1] + (media_vizinhos * num_vizinhos)) / ++num_vizinhos);
+                media_vizinhos = ((original->matriz_img[i - 1][j] + (media_vizinhos * num_vizinhos)) / ++num_vizinhos);
             }
 
             if (j < max_colunas)
-            {
-                media_vizinhos += (int)nova_img->matriz_img[i][j + 1];
-                num_vizinhos++;
-            }
+                media_vizinhos = ((original->matriz_img[i][j + 1] + (media_vizinhos * num_vizinhos)) / ++num_vizinhos);
             if (j > 0)
-            {
-                media_vizinhos += (int)nova_img->matriz_img[i][j - 1];
-                num_vizinhos++;
-            }
+                media_vizinhos = ((original->matriz_img[i][j - 1] + (media_vizinhos * num_vizinhos)) / ++num_vizinhos);
 
-            // proprio pixel
-            media_vizinhos += (int)nova_img->matriz_img[i][j];
-
-            media_vizinhos = (unsigned char)(media_vizinhos / num_vizinhos);
-
-            nova_img->matriz_img[i][j] = (unsigned char)(media_vizinhos);
+            media_vizinhos = ((original->matriz_img[i][j] + (media_vizinhos * num_vizinhos)) / ++num_vizinhos);
+            mat_aux[i][j] = media_vizinhos;
         }
     }
 
-    return nova_img;
+    original->matriz_img = mat_aux;
+    return original;
 }
 
 int main(int argc, char *argv[])

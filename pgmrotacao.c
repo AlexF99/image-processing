@@ -18,20 +18,12 @@ t_pgm *pgm_rotacao_simples(t_pgm *nova_img)
 
     // 90 graus
     nova_mat = aloca_matriz(jmax, imax);
-    // nova_mat = aloca_matriz(imax, jmax);
 
     for (i = 0; i < jmax-1; i++)
     {
         for (j = 0; j < imax-1; j++)
         {
-            // printf("i: %d, j: %d\n", imax - j - 1, i);
             nova_mat[i][j] = nova_img->matriz_img[imax - j - 1][i];
-            // nova_mat[i][j] = nova_img->matriz_img[i][j];
-            // if (i<1)
-            // {
-            //     printf
-            // }
-            
         }
     }
 
@@ -42,22 +34,6 @@ t_pgm *pgm_rotacao_simples(t_pgm *nova_img)
     nova_img->linhas = jmax;
     nova_img->colunas = imax;
     nova_img->matriz_img = nova_mat;
-
-    // for (i = 0; i < jmax; i++)
-    // {
-    //     k = 0;
-    //     for (j = imax - 1; j >= 0; j--)
-    //     {
-    //         nova_img->matriz_img[i][k] = nova_mat[i][j];
-    //         k++;
-    //     }
-    // }
-
-    // nova_img->matriz_img = aloca_matriz(jmax, imax);
-    // nova_img->matriz_img = nova_mat;
-
-    // criar funcao separada depois
-    // libera_matriz(nova_mat, jmax);
 
     return nova_img;
 }

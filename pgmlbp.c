@@ -14,57 +14,61 @@ t_pgm *pgm_media(t_pgm *original)
     int max_linhas = original->linhas - 1;
     int max_colunas = original->colunas - 1;
 
-    unsigned char valor_lbp = 0;
+    int valor_lbp = 0;
+
+    unsigned char **matriz_aux = aloca_matriz(original->linhas, original->colunas);
 
     for (i = 0; i < original->linhas; i++)
     {
         for (j = 0; j < original->colunas; j++)
         {
+            valor_lbp = 0;
             if (i < max_linhas)
             {
                 if (j < max_colunas)
                 {
-                    if (original->matriz_img[i + 1][j + 1] > original->matriz_img[i][j])
-                        valor_lbp += 128;
+                    if (original->matriz_img[i + 1][j + 1] >= original->matriz_img[i][j])
+                        valor_lbp = (valor_lbp + 128);
                 }
                 if (j > 0)
                 {
-                    if (original->matriz_img[i + 1][j - 1] > original->matriz_img[i][j])
-                        valor_lbp += 32;
+                    if (original->matriz_img[i + 1][j - 1] >= original->matriz_img[i][j])
+                        valor_lbp = (valor_lbp + 32);
                 }
-                if (original->matriz_img[i + 1][j] > original->matriz_img[i][j])
-                    valor_lbp += 64;
+                if (original->matriz_img[i + 1][j] >= original->matriz_img[i][j])
+                    valor_lbp = (valor_lbp + 64);
             }
+
             if (i > 0)
             {
                 if (j < max_colunas)
                 {
-                    if (original->matriz_img[i - 1][j + 1] > original->matriz_img[i][j])
-                        valor_lbp += 4;
+                    if (original->matriz_img[i - 1][j + 1] >= original->matriz_img[i][j])
+                        valor_lbp = (valor_lbp + 4);
                 }
                 if (j > 0)
                 {
-                    if (original->matriz_img[i - 1][j - 1] > original->matriz_img[i][j])
-                        valor_lbp += 1;
+                    if (original->matriz_img[i - 1][j - 1] >= original->matriz_img[i][j])
+                        valor_lbp = (valor_lbp + 1);
                 }
-                if (original->matriz_img[i - 1][j] > original->matriz_img[i][j])
-                    valor_lbp += 2;
+                if (original->matriz_img[i - 1][j] >= original->matriz_img[i][j])
+                    valor_lbp = (valor_lbp + 2);
             }
 
             if (j < max_colunas)
             {
-                if (original->matriz_img[i][j + 1] > original->matriz_img[i][j])
-                    valor_lbp += 16;
+                if (original->matriz_img[i][j + 1] >= original->matriz_img[i][j])
+                    valor_lbp = (valor_lbp + 16);
             }
             if (j > 0)
             {
-                if (original->matriz_img[i][j - 1] > original->matriz_img[i][j])
-                    valor_lbp += 8;
+                if (original->matriz_img[i][j - 1] >= original->matriz_img[i][j])
+                    valor_lbp = (valor_lbp + 8);
             }
-            original->matriz_img[i][j] = valor_lbp;
-            valor_lbp = 0;
+            matriz_aux[i][j] = valor_lbp;
         }
     }
+    original->matriz_img = matriz_aux;
     return original;
 }
 
