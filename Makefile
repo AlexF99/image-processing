@@ -9,22 +9,22 @@ common:
 	gcc -c abre_pgm.c -o abre_pgm.o
 	gcc -c trata_pgm.c -o trata_pgm.o
 
-pgmnega: ${common_o}
+pgmnega: ${common_o} pgmnega.c
 	gcc -g ${common_o} pgmnega.c -o pgmnega
 
-pgmlimiar: ${common_o}
+pgmlimiar: ${common_o} pgmlimiar.c
 	gcc -g ${common_o} pgmlimiar.c -o pgmlimiar
 
-pgmmedia: ${common_o}
+pgmmedia: ${common_o} pgmmedia.c
 	gcc -g ${common_o} pgmmedia.c -o pgmmedia
 
-pgmrotacao: ${common_o}
+pgmrotacao: ${common_o} pgmrotacao.c
 	gcc -g ${common_o} pgmrotacao.c -o pgmrotacao
 
-pgmlbp: ${common_o}
+pgmlbp: ${common_o} pgmlbp.c
 	gcc -g ${common_o} pgmlbp.c -o pgmlbp
 
-pgmmediana: ${common_o}
+pgmmediana: ${common_o} pgmmediana.c
 	gcc -g ${common_o} pgmmediana.c -o pgmmediana
 
 clean:
