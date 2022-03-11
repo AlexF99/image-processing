@@ -7,24 +7,20 @@
 
 unsigned char **aloca_matriz(int linhas, int colunas)
 {
-    int i, j;
-    unsigned char **mat = malloc(linhas * sizeof(unsigned char *));
+    int i;
+    unsigned char **mat = NULL;
 
+
+    mat = malloc(linhas * sizeof(unsigned char *) + linhas * colunas * sizeof(unsigned char));
     if (mat == NULL)
     {
         perror("erro de malloc");
         exit(1);
     }
-
-    for (i = 0; i < linhas; i++)
-    {
-        mat[i] = malloc(colunas * sizeof(unsigned char));
-        if (mat[i] == NULL)
-        {
-            perror("erro de malloc");
-            exit(1);
-        }
-    }
+    mat[0] = (unsigned char *)(mat + linhas);
+    for (i = 1; i < linhas; i++)
+        mat[i] = mat[0] + (i * colunas);
+    
     return mat;
 }
 
@@ -102,27 +98,9 @@ void cria_pgm(t_pgm *pgm, char *arquivo_saida)
     fclose(nova_imagem);
 }
 
-void libera_matriz(unsigned char **mat, int linhas)
-{
-    int i;
-    for (i = 0; i < linhas; i++)
-        free(mat[i]);
-
-    free(mat);
-}
-
 void libera_pgm(t_pgm *pgm)
 {
     free(pgm->tipo_pixel);
-
-    libera_matriz(pgm->matriz_img, pgm->linhas);
-    pgm->matriz_img = NULL;
-
-    // int i;
-    // for (i = 0; i < pgm->linhas; i++)
-    //     free(pgm->matriz_img[i]);
-
-    // free(pgm->matriz_img);
-
+    free(pgm->matriz_img);
     free(pgm);
 }
