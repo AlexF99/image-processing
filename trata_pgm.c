@@ -47,8 +47,8 @@ t_pgm *init_pgm(FILE **img)
     else
         fseek(*img, 2 * sizeof(char), SEEK_SET);
 
-    fscanf(*img, "%d", &pgm->linhas);
     fscanf(*img, "%d", &pgm->colunas);
+    fscanf(*img, "%d", &pgm->linhas);
     fscanf(*img, "%d", &pgm->maxgray);
 
     pgm->matriz_img = aloca_matriz(pgm->linhas, pgm->colunas);
@@ -79,8 +79,8 @@ void cria_pgm(t_pgm *pgm, char *arquivo_saida)
         nova_imagem = fopen(arquivo_saida, "w");
 
     fprintf(nova_imagem, "%s\n", pgm->tipo_pixel);
-    fprintf(nova_imagem, "%d\n", pgm->linhas);
     fprintf(nova_imagem, "%d\n", pgm->colunas);
+    fprintf(nova_imagem, "%d\n", pgm->linhas);
     fprintf(nova_imagem, "%d\n", pgm->maxgray);
     if (!strcmp("P2", pgm->tipo_pixel))
     {
