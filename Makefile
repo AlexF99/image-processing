@@ -14,6 +14,7 @@ filtros: ${common_o}
 	gcc -g ${common_o} pgmlimiar.c -o pgmlimiar
 	gcc -g ${common_o} pgmmedia.c -o pgmmedia
 	gcc -g ${common_o} pgmrotacao.c -o pgmrotacao
+	gcc -g ${common_o} pgmlbp.c -o pgmlbp
 
 clean:
 	-rm -f *~ *.o
@@ -24,3 +25,4 @@ purge:
 	-rm -f pgmlimiar
 	-rm -f pgmmedia
 	-rm -f pgmrotacao
+	-rm -f pgmlbp
