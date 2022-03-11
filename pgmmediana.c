@@ -8,9 +8,38 @@
 #define LINESIZE 1024
 #define MAXV 255
 
-t_pgm *pgm_mediana(t_pgm *nova_img, int angulo)
-{
+int cmpfunc (const void * a, const void * b) {
+   return ( *(int*)a - *(int*)b );
+}
 
+t_pgm *pgm_mediana(t_pgm *nova_img, int limite_mediana)
+{
+    int lim = limite_mediana / 2;
+    int i, j;
+    int k, l;
+    int z = 0;
+    unsigned char *array_vizinhos = NULL;
+    int num_vizinhos = lim * lim;
+
+    array_vizinhos = malloc(num_vizinhos * sizeof(unsigned char));
+
+    for (i = lim; i < nova_img->linhas - lim; i++)
+    {
+        for (j = lim; j < nova_img->colunas - lim; i++)
+        {
+            z = 0;
+            for (k = i - lim; k < i + lim; k++)
+            {
+                for (l = j - lim; l < j + lim; l++)
+                {
+                    array_vizinhos[z] = nova_img->matriz_img[k][l];
+                    z++;
+                }
+            }
+            qsort(array_vizinhos, num_vizinhos, sizeof(int), cmpfunc);
+            
+        }
+    }
 
     return nova_img;
 }

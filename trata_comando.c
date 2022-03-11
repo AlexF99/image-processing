@@ -10,13 +10,16 @@ void parser(int argc, char *argv[], char **arquivo_entrada, char **arquivo_saida
     char *end;
     extern char *optarg;
 
-    while ((option = getopt(argc, argv, "l:i:o:a:")) != -1)
+    while ((option = getopt(argc, argv, "l:i:o:a:m:")) != -1)
         switch (option)
         {
         case 'l':
             *limiar = strtof(optarg, NULL);
             if (optarg == end)
                 break;
+            break;
+        case 'm':
+            *limite_mediana = strtol(optarg, &end, 10);
             break;
         case 'a':
             *angulo = strtol(optarg, &end, 10);
