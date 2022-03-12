@@ -24,7 +24,7 @@ t_pgm *pgm_mediana(t_pgm *original, int limite_mediana)
     int num_vizinhos = lim * lim;
 
     unsigned char **matriz_aux = aloca_matriz(original->linhas, original->colunas);
-    array_vizinhos = malloc((num_vizinhos * 2) * sizeof(unsigned char));
+    array_vizinhos = malloc(num_vizinhos * sizeof(unsigned char));
 
     for (i = 0; i < original->linhas; i++)
         for (j = 0; j < original->colunas; j++)
@@ -39,14 +39,13 @@ t_pgm *pgm_mediana(t_pgm *original, int limite_mediana)
             {
                 for (l = j - lim; l <= j + lim; l++)
                 {
-                    if ((k >= 0) && (k < original->linhas) && (l >= 0) && (l < original->colunas))
+                    if ((i > lim) && (i < original->linhas-lim-1) && (j > 0) && (j < original->colunas-lim-1))
                     {
                         array_vizinhos[z] = matriz_aux[k][l];
                         z += 1;
                     }
                 }
             }
-
             qsort(array_vizinhos, num_vizinhos, sizeof(unsigned char), cmpfunc);
             novo_pixel = array_vizinhos[(num_vizinhos / 2) + 1];
             original->matriz_img[i][j] = novo_pixel;
