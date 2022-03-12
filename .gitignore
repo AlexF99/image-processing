@@ -3,6 +3,8 @@
 *.env
 *.o
 
+output.pgm
+
 # filtros
 pgmnega
 pgmlimiar

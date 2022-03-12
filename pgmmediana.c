@@ -8,7 +8,7 @@
 #define LINESIZE 1024
 #define MAXV 255
 
-int cmpfunc(const void *a, const void *b)
+static int cmpfunc(const void *a, const void *b)
 {
     return (*(unsigned char *)a - *(unsigned char *)b);
 }
@@ -24,23 +24,26 @@ t_pgm *pgm_mediana(t_pgm *original, int limite_mediana)
     int num_vizinhos = lim * lim;
 
     unsigned char **matriz_aux = aloca_matriz(original->linhas, original->colunas);
-    array_vizinhos = malloc(num_vizinhos * sizeof(unsigned char));
+    array_vizinhos = malloc((num_vizinhos * 2) * sizeof(unsigned char));
 
     for (i = 0; i < original->linhas; i++)
         for (j = 0; j < original->colunas; j++)
             matriz_aux[i][j] = original->matriz_img[i][j];
 
-    for (i = lim; i < original->linhas - lim - 1; i++)
+    for (i = lim; i < original->linhas - lim; i++)
     {
         for (j = lim; j < original->colunas - lim; j++)
         {
             z = 0;
-            for (k = i - lim; k < limite_mediana + i - lim; k++)
+            for (k = i - lim; k <= i + lim; k++)
             {
-                for (l = j - lim; l < limite_mediana + j - lim; l++)
+                for (l = j - lim; l <= j + lim; l++)
                 {
-                    array_vizinhos[z] = matriz_aux[k][l];
-                    z += 1;
+                    if ((k >= 0) && (k < original->linhas) && (l >= 0) && (l < original->colunas))
+                    {
+                        array_vizinhos[z] = matriz_aux[k][l];
+                        z += 1;
+                    }
                 }
             }
 
